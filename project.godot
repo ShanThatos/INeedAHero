@@ -1,0 +1,265 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ArrayUtils",
+"language": "GDScript",
+"path": "res://utils/ArrayUtils.gd"
+}, {
+"base": "Component",
+"class": "BlockPreviewComponent",
+"language": "GDScript",
+"path": "res://entities/player/components/BlockPreviewComponent.gd"
+}, {
+"base": "Reference",
+"class": "Component",
+"language": "GDScript",
+"path": "res://entities/components/Component.gd"
+}, {
+"base": "Node",
+"class": "Entity",
+"language": "GDScript",
+"path": "res://entities/Entity.gd"
+}, {
+"base": "Reference",
+"class": "ExportUtils",
+"language": "GDScript",
+"path": "res://utils/ExportUtils.gd"
+}, {
+"base": "Reference",
+"class": "FileUtils",
+"language": "GDScript",
+"path": "res://utils/FileUtils.gd"
+}, {
+"base": "Component",
+"class": "FirstPersonController",
+"language": "GDScript",
+"path": "res://entities/player/components/FirstPersonController.gd"
+}, {
+"base": "Component",
+"class": "FirstPersonInteractHandler",
+"language": "GDScript",
+"path": "res://entities/player/components/FirstPersonInteractHandler.gd"
+}, {
+"base": "Reference",
+"class": "GenericState",
+"language": "GDScript",
+"path": "res://entities/components/statemachine/GenericState.gd"
+}, {
+"base": "Entity",
+"class": "GruntEntity",
+"language": "GDScript",
+"path": "res://entities/enemies/grunt/GruntEntity.gd"
+}, {
+"base": "TimedState",
+"class": "GruntIdleState",
+"language": "GDScript",
+"path": "res://entities/enemies/grunt/components/states/GruntIdleState.gd"
+}, {
+"base": "StateMachine",
+"class": "GruntStateMachine",
+"language": "GDScript",
+"path": "res://entities/enemies/grunt/components/GruntStateMachine.gd"
+}, {
+"base": "Component",
+"class": "HealthComponent",
+"language": "GDScript",
+"path": "res://entities/components/HealthComponent.gd"
+}, {
+"base": "Reference",
+"class": "InputUtils",
+"language": "GDScript",
+"path": "res://utils/InputUtils.gd"
+}, {
+"base": "Component",
+"class": "InventoryComponent",
+"language": "GDScript",
+"path": "res://entities/components/inventory/InventoryComponent.gd"
+}, {
+"base": "Reference",
+"class": "Item",
+"language": "GDScript",
+"path": "res://entities/components/inventory/Item.gd"
+}, {
+"base": "Reference",
+"class": "ItemGlobals",
+"language": "GDScript",
+"path": "res://globals/ItemGlobals.gd"
+}, {
+"base": "Spatial",
+"class": "LevelManager",
+"language": "GDScript",
+"path": "res://managers/LevelManager.gd"
+}, {
+"base": "Reference",
+"class": "MathUtils",
+"language": "GDScript",
+"path": "res://utils/MathUtils.gd"
+}, {
+"base": "Spatial",
+"class": "NavManager",
+"language": "GDScript",
+"path": "res://managers/NavManager.gd"
+}, {
+"base": "Entity",
+"class": "PlayerEntity",
+"language": "GDScript",
+"path": "res://entities/player/PlayerEntity.gd"
+}, {
+"base": "Component",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://entities/components/statemachine/StateMachine.gd"
+}, {
+"base": "GenericState",
+"class": "TimedState",
+"language": "GDScript",
+"path": "res://entities/components/statemachine/TimedState.gd"
+}, {
+"base": "Reference",
+"class": "VoxelEntities",
+"language": "GDScript",
+"path": "res://globals/VoxelEntities.gd"
+}, {
+"base": "Entity",
+"class": "VoxelEntity",
+"language": "GDScript",
+"path": "res://entities/voxels/voxelpreview/VoxelEntity.gd"
+}, {
+"base": "Spatial",
+"class": "VoxelManager",
+"language": "GDScript",
+"path": "res://managers/VoxelManager.gd"
+}, {
+"base": "Node",
+"class": "XRManager",
+"language": "GDScript",
+"path": "res://managers/XRManager.gd"
+} ]
+_global_script_class_icons={
+"ArrayUtils": "",
+"BlockPreviewComponent": "",
+"Component": "",
+"Entity": "",
+"ExportUtils": "",
+"FileUtils": "",
+"FirstPersonController": "",
+"FirstPersonInteractHandler": "",
+"GenericState": "",
+"GruntEntity": "",
+"GruntIdleState": "",
+"GruntStateMachine": "",
+"HealthComponent": "",
+"InputUtils": "",
+"InventoryComponent": "",
+"Item": "",
+"ItemGlobals": "",
+"LevelManager": "",
+"MathUtils": "",
+"NavManager": "",
+"PlayerEntity": "",
+"StateMachine": "",
+"TimedState": "",
+"VoxelEntities": "",
+"VoxelEntity": "",
+"VoxelManager": "",
+"XRManager": ""
+}
+
+[application]
+
+config/name="INeedAHero"
+run/main_scene="res://levels/MainLevel.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://managers/GameManager.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg" )
+
+[gdnative]
+
+singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib" ]
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+move_backward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+move_jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+exit_game={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+primary_interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+secondary_interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+scroll_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+scroll_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

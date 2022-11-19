@@ -1,0 +1,29 @@
+
+Goals:
+    - Generic Node/Component Organizer
+    - Player package (component)
+    - Damageable & Health (component)
+    - Inventory (component)
+    - Inventory Item
+        - amount        - on focus action
+        - on interact action (right click)
+            - Different actions per item
+                - use (like a potion)
+                - place (like a block)
+    - Start Menu
+    - Base
+        - Base Upgrades
+    - Blocks
+        - 
+    - Enemy
+        - Pathfinding
+    - helpful ai?
+        - scrap collector
+        - turret repairer
+    - GameManager
+    - LevelManager
+    - Chunking?
+    - Procedural Generation?
+
+
+
