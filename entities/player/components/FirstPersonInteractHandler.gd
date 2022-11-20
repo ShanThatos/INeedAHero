@@ -52,7 +52,10 @@ func try_place_item():
 		return
 	
 	inventory.remove_item_by_id(ItemType.SCRAP, voxel_cost)
-	voxel_manager.place_voxel(voxel_name, voxel_coords)
+
+	var preview_component = entity.get_component("BlockPreviewComponent")
+	var preview_rotation_y = preview_component.get_active_mesh().rotation.y
+	voxel_manager.place_voxel(voxel_name, voxel_coords, preview_rotation_y)
 
 func try_break_entity():
 	var voxel_coords = get_focused_voxel(true)

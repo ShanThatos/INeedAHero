@@ -9,7 +9,7 @@ var preview_node_scene := preload("res://entities/voxels/voxelpreview/VoxelPrevi
 var preview_node: Spatial
 var tween: Tween
 var meshes: Dictionary
-var active_mesh: String
+var active_mesh_key: String
 
 func get_component_name(): return "BlockPreviewComponent"
 
@@ -20,7 +20,10 @@ func start(_entity):
 
 	for mesh_name in ["Cube", "Ramp"]:
 		meshes[mesh_name] = preview_node.get_node(mesh_name)
-	active_mesh = "Cube"
+	active_mesh_key = "Cube"
+
+func get_active_mesh():
+	return meshes[active_mesh_key]
 
 func frame_update(entity: PlayerEntity, _delta: float):
 	var inventory = entity.get_component("InventoryComponent")
@@ -55,10 +58,11 @@ func preview_voxel_placement(item_id: int):
 		return
 	
 	var mesh_name = voxel_data.get("mesh", "Cube")
-	if mesh_name != active_mesh:
-		meshes[active_mesh].visible = false
-		active_mesh = mesh_name
-	meshes[active_mesh].visible = true
+	if mesh_name != active_mesh_key:
+		get_active_mesh().visible = false
+		active_mesh_key = mesh_name
+	var active_mesh = get_active_mesh()
+	active_mesh.visible = true
 
 	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_data["size"], .1)
 	if preview_node.visible:
@@ -67,13 +71,12 @@ func preview_voxel_placement(item_id: int):
 		preview_node.translation = voxel_coords
 	_ignore = tween.start()
 
-	var current_mesh = meshes[active_mesh]
-	var material: SpatialMaterial = current_mesh.get_surface_material(0)
+	var material: SpatialMaterial = active_mesh.get_surface_material(0)
 	if voxel_manager.can_place_voxel(voxel_name, voxel_coords):
 		material.albedo_color = Color(1, 1, 1, material.albedo_color.a)
 	else:
 		material.albedo_color = Color(1, 0, 0, material.albedo_color.a)
-	current_mesh.set_surface_material(0, material)
+	active_mesh.set_surface_material(0, material)
 
 	preview_node.visible = true
 
@@ -98,14 +101,17 @@ func preview_voxel_break():
 		preview_node.translation = voxel_coords
 	_ignore = tween.start()
 
-	meshes[active_mesh].visible = false
-	active_mesh = "Cube"
-	meshes[active_mesh].visible = true
+	get_active_mesh().visible = false
+	active_mesh_key = "Cube"
+	var active_mesh = get_active_mesh()
+	active_mesh.visible = true
 
-	var current_mesh = meshes[active_mesh]
-	var material: SpatialMaterial = current_mesh.get_surface_material(0)
+	var material: SpatialMaterial = active_mesh.get_surface_material(0)
 	material.albedo_color = Color(1, 0, 0, material.albedo_color.a)
-	current_mesh.set_surface_material(0, material)
+	active_mesh.set_surface_material(0, material)
 
 	preview_node.visible = true
 
+func input_update(_entity, event: InputEvent):
+	if event.is_action_pressed("rotate_interact", true):
+		get_active_mesh().rotate_y(PI / 2)

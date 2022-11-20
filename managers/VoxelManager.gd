@@ -29,12 +29,15 @@ func can_place_voxel(voxel_name: String, voxel_pos: Vector3) -> bool:
 					return false
 	return true
 
-func place_voxel(voxel_name: String, voxel_pos: Vector3):
+func place_voxel(voxel_name: String, voxel_pos: Vector3, rotation_y: float = 0):
 	assert(can_place_voxel(voxel_name, voxel_pos), "Cannot place entity at this position " + str(voxel_pos))
 
 	var voxel_data: Dictionary = VoxelGlobals.VOXEL_DATA[voxel_name]
 	var entity = voxel_data["scene"].instance() as Spatial
 	entity.translation = voxel_pos
+	var mesh_instance_node: Spatial = entity.get_node_or_null("MeshInstance")
+	if mesh_instance_node:
+		mesh_instance_node.rotation.y = stepify(rotation_y, PI / 2)
 
 	entity.set_meta("voxel_name", voxel_name)
 	for key in voxel_data:
