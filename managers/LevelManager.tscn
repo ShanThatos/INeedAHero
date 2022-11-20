@@ -28,7 +28,7 @@ margin_top = -2.0
 margin_right = 2.0
 margin_bottom = 2.0
 
-[node name="InventorySlots" type="HBoxContainer" parent="UI"]
+[node name="InventoryDisplay" type="HBoxContainer" parent="UI"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -38,40 +38,40 @@ margin_top = -60.0
 margin_right = 300.0
 custom_constants/separation = 0
 
-[node name="ItemSlot0" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot0" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 
-[node name="ItemSlot1" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot1" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 60.0
 margin_right = 120.0
 
-[node name="ItemSlot2" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot2" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 120.0
 margin_right = 180.0
 
-[node name="ItemSlot3" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot3" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 180.0
 margin_right = 240.0
 
-[node name="ItemSlot4" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot4" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 240.0
 margin_right = 300.0
 
-[node name="ItemSlot5" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot5" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 300.0
 margin_right = 360.0
 
-[node name="ItemSlot6" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot6" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 360.0
 margin_right = 420.0
 
-[node name="ItemSlot7" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot7" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 420.0
 margin_right = 480.0
 
-[node name="ItemSlot8" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot8" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 480.0
 margin_right = 540.0
 
-[node name="ItemSlot9" parent="UI/InventorySlots" instance=ExtResource( 3 )]
+[node name="ItemSlot9" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
 margin_left = 540.0
 margin_right = 600.0

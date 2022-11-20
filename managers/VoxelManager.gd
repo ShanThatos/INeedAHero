@@ -8,31 +8,19 @@ var voxels = {}
 func _ready():
 	name = "VoxelManager"
 
-var __cached_entity_scenes = {}
-func find_entity_scene(entity_type: int):
-	if entity_type in __cached_entity_scenes:
-		return __cached_entity_scenes[entity_type]
-	for voxel_entity in VoxelEntities.entity_scenes:
-		var props := ExportUtils.extract_export_vars(voxel_entity)
-		if props.get("entity_type", 0) == entity_type:
-			__cached_entity_scenes[entity_type] = voxel_entity
-			return voxel_entity
-	__cached_entity_scenes[entity_type] = null
-	return null
-
 func global_to_voxel(global_pos: Vector3) -> Vector3:
 	return to_local(global_pos).floor()
 
-func get_voxel_at(voxel_pos: Vector3) -> VoxelEntity:
+func get_voxel_at(voxel_pos: Vector3) -> Spatial:
 	return voxels.get(voxel_pos, null)
 func get_voxel_coord_for(voxel: Spatial) -> Vector3:
 	return voxel.translation.floor()
 
-func can_place_entity(entity_scene: PackedScene, voxel_pos: Vector3) -> bool:
+func can_place_voxel(voxel_name: String, voxel_pos: Vector3) -> bool:
 	if voxel_pos.y < 0:
 		return false
-	var properties = ExportUtils.extract_export_vars(entity_scene)
-	var voxel_size = properties["voxel_size"]
+
+	var voxel_size = VoxelGlobals.VOXEL_DATA[voxel_name]["size"]
 	for dx in range(voxel_size.x):
 		for dy in range(voxel_size.y):
 			for dz in range(voxel_size.z):
@@ -41,15 +29,22 @@ func can_place_entity(entity_scene: PackedScene, voxel_pos: Vector3) -> bool:
 					return false
 	return true
 
-func place_entity(entity_scene: PackedScene, voxel_pos: Vector3):
-	assert(can_place_entity(entity_scene, voxel_pos), "Cannot place entity at this position " + str(voxel_pos))
+func place_voxel(voxel_name: String, voxel_pos: Vector3):
+	assert(can_place_voxel(voxel_name, voxel_pos), "Cannot place entity at this position " + str(voxel_pos))
 
-	var entity = entity_scene.instance() as Spatial
+	var voxel_data: Dictionary = VoxelGlobals.VOXEL_DATA[voxel_name]
+	var entity = voxel_data["scene"].instance() as Spatial
 	entity.translation = voxel_pos
+
+	entity.set_meta("voxel_name", voxel_name)
+	for key in voxel_data:
+		if key == "scene":
+			continue
+		entity.set_meta(key, voxel_data[key])
+
 	add_child(entity)
 
-	var properties = ExportUtils.extract_export_vars(entity_scene)
-	var voxel_size = properties["voxel_size"]
+	var voxel_size = voxel_data["size"]
 	for dx in range(voxel_size.x):
 		for dy in range(voxel_size.y):
 			for dz in range(voxel_size.z):
@@ -57,7 +52,7 @@ func place_entity(entity_scene: PackedScene, voxel_pos: Vector3):
 
 func can_remove_entity(voxel_pos: Vector3) -> bool:
 	var voxel = get_voxel_at(voxel_pos)
-	if voxel == null or !voxel.breakable:
+	if voxel == null or !voxel.get_meta("breakable"):
 		return false
 	return true
 
@@ -66,7 +61,7 @@ func remove_entity(voxel_pos: Vector3):
 
 	var voxel = get_voxel_at(voxel_pos)
 	var coords = get_voxel_coord_for(voxel)
-	var voxel_size = voxel.voxel_size
+	var voxel_size = voxel.get_meta("size")
 	for dx in range(voxel_size.x):
 		for dy in range(voxel_size.y):
 			for dz in range(voxel_size.z):

@@ -22,8 +22,9 @@ func start():
 	inventory.add_item(ItemType.SCRAP, 10)
 	inventory.add_item(ItemType.BULLDOZER, 1)
 	inventory.add_item(ItemType.SCRAP_BLOCK, 1)
+	inventory.add_item(ItemType.SCRAP_RAMP, 1)
 
 func register_components():
-	var components := FileUtils.load_scripts(["HealthComponent", "InventoryComponent"], "res://entities/components/")
+	var components := FileUtils.load_scripts(["HealthComponent", "InventoryComponent", "InventoryDisplayComponent"], "res://entities/components/")
 	components.append_array(FileUtils.load_scripts(["BlockPreviewComponent", "FirstPersonController", "FirstPersonInteractHandler"], FileUtils.get_script_base_dir(self)))
 	return components

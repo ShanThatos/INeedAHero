@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/components/inventory/InventoryComponent.gd"
 }, {
+"base": "Component",
+"class": "InventoryDisplayComponent",
+"language": "GDScript",
+"path": "res://entities/components/inventory/InventoryDisplayComponent.gd"
+}, {
 "base": "Reference",
 "class": "Item",
 "language": "GDScript",
@@ -125,14 +130,9 @@ _global_script_classes=[ {
 "path": "res://entities/components/statemachine/TimedState.gd"
 }, {
 "base": "Reference",
-"class": "VoxelEntities",
+"class": "VoxelGlobals",
 "language": "GDScript",
-"path": "res://globals/VoxelEntities.gd"
-}, {
-"base": "Entity",
-"class": "VoxelEntity",
-"language": "GDScript",
-"path": "res://entities/voxels/voxelpreview/VoxelEntity.gd"
+"path": "res://globals/VoxelGlobals.gd"
 }, {
 "base": "Spatial",
 "class": "VoxelManager",
@@ -160,6 +160,7 @@ _global_script_class_icons={
 "HealthComponent": "",
 "InputUtils": "",
 "InventoryComponent": "",
+"InventoryDisplayComponent": "",
 "Item": "",
 "ItemGlobals": "",
 "LevelManager": "",
@@ -168,8 +169,7 @@ _global_script_class_icons={
 "PlayerEntity": "",
 "StateMachine": "",
 "TimedState": "",
-"VoxelEntities": "",
-"VoxelEntity": "",
+"VoxelGlobals": "",
 "VoxelManager": "",
 "XRManager": ""
 }

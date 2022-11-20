@@ -8,28 +8,31 @@ const ITEM_DATA = ItemGlobals.ITEM_DATA
 var preview_node_scene := preload("res://entities/voxels/voxelpreview/VoxelPreview.tscn")
 var preview_node: Spatial
 var tween: Tween
-var mesh_instance: MeshInstance
+var meshes: Dictionary
+var active_mesh: String
 
 func get_component_name(): return "BlockPreviewComponent"
 
 func start(_entity):
 	preview_node = preview_node_scene.instance()
 	tween = preview_node.get_node("Tween")
-	mesh_instance = preview_node.get_node("MeshInstance")
 	GameManager.voxel_manager.add_child(preview_node)
+
+	for mesh_name in ["Cube", "Ramp"]:
+		meshes[mesh_name] = preview_node.get_node(mesh_name)
+	active_mesh = "Cube"
 
 func frame_update(entity: PlayerEntity, _delta: float):
 	var inventory = entity.get_component("InventoryComponent")
-	var current_item = inventory.current_item
-	var items = inventory.items
-	var item_id = items[current_item].item_id
+	var item_id = inventory.get_current_item_object().item_id
 
-	if ITEM_DATA[item_id]["action"] == ItemAction.PLACE:
-		preview_voxel_placement(item_id)
-	elif ITEM_DATA[item_id]["action"] == ItemAction.BULLDOZE:
-		preview_voxel_break()
-	else:
-		preview_node.visible = false
+	match ITEM_DATA[item_id]["action"]:
+		ItemAction.PLACE:
+			preview_voxel_placement(item_id)
+		ItemAction.BULLDOZE:
+			preview_voxel_break()
+		_:
+			preview_node.visible = false
 
 func preview_voxel_placement(item_id: int):
 	var interact_handler = entity.get_component("InteractHandler")
@@ -39,32 +42,38 @@ func preview_voxel_placement(item_id: int):
 		return
 
 	var voxel_manager = GameManager.voxel_manager
-	var item_entity_scene = voxel_manager.find_entity_scene(item_id)
-	if (item_entity_scene == null):
-		preview_node.visible = false
-		return
+	
+	var item_data = ITEM_DATA[item_id]
+	assert(item_data["action"] == ItemAction.PLACE)
+
+	var voxel_name = item_data["voxel_name"]
+	var voxel_data = VoxelGlobals.VOXEL_DATA[voxel_name]
 	
 	var inventory = entity.get_component("InventoryComponent")
-	if !inventory.has_item(ItemType.SCRAP, ITEM_DATA[item_id]["cost"]):
+	if !inventory.has_item(ItemType.SCRAP, item_data["cost"]):
 		preview_node.visible = false
 		return
-
-	var properties = ExportUtils.extract_export_vars(item_entity_scene)
-	var voxel_size = properties["voxel_size"]
 	
-	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_size, .1)
+	var mesh_name = voxel_data.get("mesh", "Cube")
+	if mesh_name != active_mesh:
+		meshes[active_mesh].visible = false
+		active_mesh = mesh_name
+	meshes[active_mesh].visible = true
+
+	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_data["size"], .1)
 	if preview_node.visible:
 		_ignore = tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
 	else:
 		preview_node.translation = voxel_coords
 	_ignore = tween.start()
 
-	var material: SpatialMaterial = mesh_instance.get_surface_material(0)
-	if voxel_manager.can_place_entity(item_entity_scene, voxel_coords):
+	var current_mesh = meshes[active_mesh]
+	var material: SpatialMaterial = current_mesh.get_surface_material(0)
+	if voxel_manager.can_place_voxel(voxel_name, voxel_coords):
 		material.albedo_color = Color(1, 1, 1, material.albedo_color.a)
 	else:
 		material.albedo_color = Color(1, 0, 0, material.albedo_color.a)
-	mesh_instance.set_surface_material(0, material)
+	current_mesh.set_surface_material(0, material)
 
 	preview_node.visible = true
 
@@ -76,23 +85,27 @@ func preview_voxel_break():
 		return
 	
 	var voxel_manager = GameManager.voxel_manager
-	var voxel_entity: VoxelEntity = voxel_manager.get_voxel_at(focused_voxel_coords)
-	if voxel_entity == null:
+	var voxel_entity = voxel_manager.get_voxel_at(focused_voxel_coords)
+	if voxel_entity == null or !voxel_entity.get_meta("breakable"):
 		preview_node.visible = false
 		return
-	var voxel_size = voxel_entity.voxel_size
+	
 	var voxel_coords = voxel_manager.get_voxel_coord_for(voxel_entity)
-
-	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_size, .1)
+	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_entity.get_meta("size"), .1)
 	if preview_node.visible:
 		_ignore = tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
 	else:
 		preview_node.translation = voxel_coords
 	_ignore = tween.start()
 
-	var material: SpatialMaterial = mesh_instance.get_surface_material(0)
+	meshes[active_mesh].visible = false
+	active_mesh = "Cube"
+	meshes[active_mesh].visible = true
+
+	var current_mesh = meshes[active_mesh]
+	var material: SpatialMaterial = current_mesh.get_surface_material(0)
 	material.albedo_color = Color(1, 0, 0, material.albedo_color.a)
-	mesh_instance.set_surface_material(0, material)
+	current_mesh.set_surface_material(0, material)
 
 	preview_node.visible = true
 

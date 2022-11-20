@@ -3,9 +3,10 @@ class_name ItemGlobals
 enum ItemType {
     NONE, 
     BULLDOZER, 
-    SCRAP_BLOCK, 
+    SCRAP,
     BASE,
-    SCRAP
+    SCRAP_BLOCK,
+    SCRAP_RAMP
 }
 
 enum ItemAction {
@@ -25,22 +26,32 @@ const ITEM_DATA = {
         "texture": "bulldoze.png",
         "text_display": "destroy"
     },
-    ItemType.SCRAP_BLOCK: {
-        "name": "Scrap Block",
-        "action": ItemAction.PLACE,
-        "cost": 2,
-        "texture": "ScrapBlock.jpg",
-        "text_display": "-{cost}"
-    },
-    ItemType.BASE: {
-        "name": "Base",
-        "action": ItemAction.PLACE,
-        "cost": 0
-    },
     ItemType.SCRAP: {
         "name": "Scrap",
         "action": ItemAction.NONE,
         "texture": "scrap.png",
         "text_display": "{amount} scrap"
+    },
+    ItemType.BASE: {
+        "name": "Base",
+        "action": ItemAction.PLACE,
+        "voxel_name": "Base",
+        "cost": 0
+    },
+    ItemType.SCRAP_BLOCK: {
+        "name": "Scrap Block",
+        "action": ItemAction.PLACE,
+        "voxel_name": "ScrapBlock",
+        "cost": 2,
+        "texture": "ScrapBlock.jpg",
+        "text_display": "-{cost}"
+    },
+    ItemType.SCRAP_RAMP: {
+        "name": "Scrap Ramp",
+        "action": ItemAction.PLACE,
+        "voxel_name": "ScrapRamp",
+        "cost": 2,
+        "texture": "ScrapRamp.png",
+        "text_display": "-{cost}"
     }
 }

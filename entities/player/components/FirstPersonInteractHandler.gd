@@ -22,41 +22,37 @@ func frame_update(entity: PlayerEntity, _delta: float):
 	var items = inventory.items
 
 	if Input.is_action_just_pressed("secondary_interact"):
-		if current_item < items.size():
-			match ITEM_DATA[items[current_item].item_id]["action"]:
-				ItemAction.PLACE:
-					try_place_item()
-				ItemAction.BULLDOZE:
-					try_break_entity()
+		match ITEM_DATA[items[current_item].item_id]["action"]:
+			ItemAction.PLACE:
+				try_place_item()
+			ItemAction.BULLDOZE:
+				try_break_entity()
 	
 	var dci = int(Input.is_action_just_released("scroll_right")) - int(Input.is_action_just_released("scroll_left"))
 	if dci != 0:
 		inventory.current_item = (current_item + dci + items.size()) % items.size()
 
 func try_place_item():
-	var inventory = entity.get_component("InventoryComponent")
-	var current_item = inventory.current_item
-	var items = inventory.items
-
 	var voxel_coords = get_focused_voxel(false)
 	if voxel_coords == null: return
 	
-	var voxel_manager = GameManager.voxel_manager
-	var item_id = items[current_item].item_id
-	var item_entity_scene = voxel_manager.find_entity_scene(item_id)
+	var inventory = entity.get_component("InventoryComponent")
+	var item_data = ITEM_DATA[inventory.get_current_item_object().item_id]
+	assert(item_data["action"] == ItemAction.PLACE, "Trying to place item that is not placeable")
 	
-	if item_entity_scene == null:
-		print("ERROR: No entity scene for item " + str(item_id))
-		return
-	if !voxel_manager.can_place_entity(item_entity_scene, voxel_coords):
-		print("can't place entity there")
-		return
-	if !inventory.has_item(ItemType.SCRAP, ITEM_DATA[item_id]["cost"]):
+	var voxel_cost = item_data["cost"]
+	if !inventory.has_item(ItemType.SCRAP, voxel_cost): 
 		print("not enough scrap")
 		return
-
-	inventory.remove_item_by_id(ItemType.SCRAP, ITEM_DATA[item_id]["cost"])
-	voxel_manager.place_entity(item_entity_scene, voxel_coords)
+	
+	var voxel_manager = GameManager.voxel_manager
+	var voxel_name = item_data["voxel_name"]
+	if !voxel_manager.can_place_voxel(voxel_name, voxel_coords):
+		print("can't place voxel there")
+		return
+	
+	inventory.remove_item_by_id(ItemType.SCRAP, voxel_cost)
+	voxel_manager.place_voxel(voxel_name, voxel_coords)
 
 func try_break_entity():
 	var voxel_coords = get_focused_voxel(true)
