@@ -8,7 +8,6 @@
 [node name="MainLevel" type="Spatial"]
 
 [node name="LevelManager" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 
 [node name="Player" parent="LevelManager" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54723, 0, 2.32618 )
@@ -17,3 +16,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54723, 0, 2.32618 )
 
 [node name="Grunt" parent="LevelManager" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.47985, 2.28881e-05, -9.97971 )
+
+[node name="Grunt2" parent="LevelManager" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.80124, 2.33649e-05, 1.74915 )
+
+[node name="Grunt3" parent="LevelManager" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.60193, 2.33649e-05, -6.89409 )

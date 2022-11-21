@@ -19,7 +19,7 @@ static func get_closest_point_on_path(point: Vector3, path: Array):
     for i in range(path.size() - 1):
         var point_on_path = get_closest_point_on_segment(point, path[i], path[i + 1])
         var distance = point.distance_to(point_on_path)
-        if distance < closest_distance:
+        if distance <= closest_distance:
             closest_distance = distance
             closest_point = point_on_path
             closest_index = i

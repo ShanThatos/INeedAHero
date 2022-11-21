@@ -49,6 +49,8 @@ func switch_state(next_state):
 	var next_state_name: String = ""
 	if next_state is String:
 		next_state_name = next_state
+	elif next_state is Array:
+		next_state_name = next_state[randi() % next_state.size()]
 	else:
 		next_state_name = next_state.get_state_name()
 	assert(next_state_name != "", "Invalid state/name " + str(next_state))

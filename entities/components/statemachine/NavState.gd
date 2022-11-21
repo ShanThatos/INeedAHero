@@ -15,6 +15,9 @@ func find_path(target):
 		path_node.translation.y += GameManager.level_manager.get_level_scale()
 
 func follow_path(_delta: float):
+	if has_finished_path():
+		return
+
 	var global_pos = entity.global_transform.origin
 	var closest_point_data = MathUtils.get_closest_point_on_path(global_pos, nav_path)
 	var closest_point = closest_point_data[0]
@@ -26,10 +29,13 @@ func follow_path(_delta: float):
 	if distance_to_point >= .5:
 		target = closest_point
 	else:
-		while segment_index > 0 and nav_path.size() > 0:
+		while segment_index > 0 and nav_path.size() > 2:
 			nav_path.pop_front()
 			segment_index -= 1
-		target = nav_path[(segment_index + 1) % nav_path.size()]
+		target = nav_path[1]
+	
+	if has_finished_path():
+		return
 	
 	var direction = (target - global_pos).normalized()
 	var level_scale = GameManager.level_manager.get_level_scale()
@@ -38,3 +44,12 @@ func follow_path(_delta: float):
 	var body = entity as KinematicBody
 	body.move_and_slide(velocity, Vector3.UP)
 
+func has_finished_path():
+	if nav_path == null or nav_path.size() < 2:
+		return true
+	var global_pos = entity.global_transform.origin
+	var level_scale = GameManager.level_manager.get_level_scale()
+	if nav_path.size() == 2 and global_pos.distance_to(nav_path[1]) < level_scale / 10:
+		nav_path = []
+		return true
+	return false
