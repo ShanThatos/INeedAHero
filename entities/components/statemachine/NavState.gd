@@ -14,7 +14,7 @@ func find_path(target):
 		var path_node = Gizmos.create_path(nav_path)
 		path_node.translation.y += GameManager.level_manager.get_level_scale()
 
-func follow_path(delta: float):
+func follow_path(_delta: float):
 	var global_pos = entity.global_transform.origin
 	var closest_point_data = MathUtils.get_closest_point_on_path(global_pos, nav_path)
 	var closest_point = closest_point_data[0]
