@@ -1,17 +1,11 @@
-extends TimedState
+extends GenericState
 class_name GruntIdleState
 
 func get_state_name():
     return "GruntIdleState"
 
-func get_time():
-    return 5
-
-func get_future_states():
-    return ["GruntIdleState"]
-
 func enter():
-    start_timer()
+    start_timer(1, ["GruntNavState"])
     print("Entered GruntIdleState")
 
 func exit():

@@ -22,3 +22,10 @@ static func flatten(arr1: Array):
 		else:
 			results.append(el)
 	return results
+
+static func all(arr: Array, function, arguments: Array = []):
+	var results = foreach(arr, function, arguments)
+	for el in results:
+		if not el:
+			return false
+	return true

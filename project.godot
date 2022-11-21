@@ -59,10 +59,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/enemies/grunt/GruntEntity.gd"
 }, {
-"base": "TimedState",
+"base": "GenericState",
 "class": "GruntIdleState",
 "language": "GDScript",
 "path": "res://entities/enemies/grunt/components/states/GruntIdleState.gd"
+}, {
+"base": "NavState",
+"class": "GruntNavState",
+"language": "GDScript",
+"path": "res://entities/enemies/grunt/components/states/GruntNavState.gd"
 }, {
 "base": "StateMachine",
 "class": "GruntStateMachine",
@@ -102,17 +107,27 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "LevelManager",
 "language": "GDScript",
-"path": "res://managers/LevelManager.gd"
+"path": "res://globals/managers/LevelManager.gd"
 }, {
 "base": "Reference",
 "class": "MathUtils",
 "language": "GDScript",
 "path": "res://utils/MathUtils.gd"
 }, {
+"base": "Reference",
+"class": "MinHeap",
+"language": "GDScript",
+"path": "res://utils/datastructures/MinHeap.gd"
+}, {
 "base": "Spatial",
 "class": "NavManager",
 "language": "GDScript",
-"path": "res://managers/NavManager.gd"
+"path": "res://globals/managers/NavManager.gd"
+}, {
+"base": "GenericState",
+"class": "NavState",
+"language": "GDScript",
+"path": "res://entities/components/statemachine/NavState.gd"
 }, {
 "base": "Entity",
 "class": "PlayerEntity",
@@ -124,11 +139,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/components/statemachine/StateMachine.gd"
 }, {
-"base": "GenericState",
-"class": "TimedState",
-"language": "GDScript",
-"path": "res://entities/components/statemachine/TimedState.gd"
-}, {
 "base": "Reference",
 "class": "VoxelGlobals",
 "language": "GDScript",
@@ -137,12 +147,12 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "VoxelManager",
 "language": "GDScript",
-"path": "res://managers/VoxelManager.gd"
+"path": "res://globals/managers/VoxelManager.gd"
 }, {
 "base": "Node",
 "class": "XRManager",
 "language": "GDScript",
-"path": "res://managers/XRManager.gd"
+"path": "res://globals/managers/XRManager.gd"
 } ]
 _global_script_class_icons={
 "ArrayUtils": "",
@@ -156,6 +166,7 @@ _global_script_class_icons={
 "GenericState": "",
 "GruntEntity": "",
 "GruntIdleState": "",
+"GruntNavState": "",
 "GruntStateMachine": "",
 "HealthComponent": "",
 "InputUtils": "",
@@ -165,10 +176,11 @@ _global_script_class_icons={
 "ItemGlobals": "",
 "LevelManager": "",
 "MathUtils": "",
+"MinHeap": "",
 "NavManager": "",
+"NavState": "",
 "PlayerEntity": "",
 "StateMachine": "",
-"TimedState": "",
 "VoxelGlobals": "",
 "VoxelManager": "",
 "XRManager": ""
@@ -177,12 +189,13 @@ _global_script_class_icons={
 [application]
 
 config/name="INeedAHero"
-run/main_scene="res://levels/MainLevel.tscn"
+run/main_scene="res://entities/levels/MainLevel.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-GameManager="*res://managers/GameManager.gd"
+GameManager="*res://globals/managers/GameManager.gd"
+Gizmos="*res://utils/gizmos/Gizmos.gd"
 
 [editor_plugins]
 

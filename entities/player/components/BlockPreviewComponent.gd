@@ -76,7 +76,6 @@ func preview_voxel_placement(item_id: int):
 		material.albedo_color = Color(1, 1, 1, material.albedo_color.a)
 	else:
 		material.albedo_color = Color(1, 0, 0, material.albedo_color.a)
-	active_mesh.set_surface_material(0, material)
 
 	preview_node.visible = true
 

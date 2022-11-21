@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://managers/LevelManager.gd" type="Script" id=1]
+[ext_resource path="res://globals/managers/LevelManager.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
 [ext_resource path="res://entities/ui/ItemSlot.tscn" type="PackedScene" id=3]
 

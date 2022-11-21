@@ -7,12 +7,19 @@ var voxels = {}
 
 func _ready():
 	name = "VoxelManager"
+	GameManager.voxel_manager = self
 
-func global_to_voxel(global_pos: Vector3) -> Vector3:
-	return to_local(global_pos).floor()
+func global_to_voxel(global_pos: Vector3, floored := true) -> Vector3:
+	var voxel_pos = to_local(global_pos)
+	if floored:
+		voxel_pos = voxel_pos.floor()
+	return voxel_pos
+
+func voxel_to_global(voxel_pos: Vector3) -> Vector3:
+	return to_global(voxel_pos)
 
 func get_voxel_at(voxel_pos: Vector3) -> Spatial:
-	return voxels.get(voxel_pos, null)
+	return voxels.get(voxel_pos.floor())
 func get_voxel_coord_for(voxel: Spatial) -> Vector3:
 	return voxel.translation.floor()
 

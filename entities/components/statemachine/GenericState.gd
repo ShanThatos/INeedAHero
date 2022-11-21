@@ -28,3 +28,8 @@ func set_machine(_machine):
 
 func set_entity(_entity):
     entity = _entity
+
+func start_timer(time: float, future_states: Array):
+    assert(future_states.size() > 0, "TimedState must have at least one future state")
+    yield(entity.get_tree().create_timer(time), "timeout")
+    machine.switch_state(future_states[randi() % future_states.size()])
