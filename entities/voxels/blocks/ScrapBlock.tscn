@@ -16,7 +16,7 @@ mesh = ExtResource( 1 )
 material/0 = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance"]
-collision_layer = 2
+collision_layer = 9
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
 shape = ExtResource( 3 )

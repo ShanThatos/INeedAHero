@@ -1,0 +1,5 @@
+1: all
+2: player
+3: enemies
+4: ground, voxels
+5: targetable voxels (base, turret, etc...)
