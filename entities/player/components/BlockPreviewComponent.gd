@@ -45,7 +45,6 @@ func preview_voxel_placement(item_id: int):
 		return
 
 	var voxel_manager = GameManager.voxel_manager
-	
 	var item_data = ITEM_DATA[item_id]
 	assert(item_data["action"] == ItemAction.PLACE)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/godot-openxr/config/OpenXRHand.gdns" type="Script" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/center_ball_material.tres" type="Material" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://addons/godot-openxr/scenes/left_hand_material.tres" type="Material" id=6]
 [ext_resource path="res://addons/godot-openxr/scenes/bone_material.tres" type="Material" id=7]
 [ext_resource path="res://addons/godot-openxr/scenes/hand_nodes.gd" type="Script" id=8]
+[ext_resource path="res://globals/modifiers/GlobalAccessModifier.gd" type="Script" id=9]
 
 [sub_resource type="Environment" id=2]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -279,6 +280,8 @@ mesh = SubResource( 10 )
 [node name="ThumbTip" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/ThumbMetacarpal/ThumbProximal/ThumbDistal"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05 )
 mesh = SubResource( 10 )
+script = ExtResource( 9 )
+global_id = "right_thumb_tip"
 
 [node name="ThumbDistal_Bone" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/ThumbMetacarpal/ThumbProximal/ThumbDistal"]
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )
@@ -311,6 +314,8 @@ mesh = SubResource( 10 )
 [node name="IndexTip" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05 )
 mesh = SubResource( 10 )
+script = ExtResource( 9 )
+global_id = "right_index_tip"
 
 [node name="IndexDistal_Bone" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal"]
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )

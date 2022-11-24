@@ -1,8 +1,8 @@
 extends Component
 class_name FirstPersonController
 
-var firstPersonCamera: Camera
-var forwardRayCast: RayCast
+var first_person_camera: Camera
+var forward_ray_cast: RayCast
 
 var default_near_plane: float
 var default_forward_raycast: Vector3
@@ -12,16 +12,16 @@ func get_component_name(): return "FirstPersonController"
 
 func start():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	firstPersonCamera = entity.get_node("FirstPersonCamera")
-	forwardRayCast = firstPersonCamera.get_node("ForwardRayCast")
-	firstPersonCamera.make_current()
-	default_near_plane = firstPersonCamera.near
-	default_forward_raycast = forwardRayCast.cast_to
+	first_person_camera = entity.get_node("FirstPersonCamera")
+	forward_ray_cast = first_person_camera.get_node("ForwardRayCast")
+	first_person_camera.make_current()
+	default_near_plane = first_person_camera.near
+	default_forward_raycast = forward_ray_cast.cast_to
 
 func update_level_scaled_values():
 	var level_scale = GameManager.level_manager.get_level_scale()
-	firstPersonCamera.near = default_near_plane * level_scale
-	forwardRayCast.cast_to = default_forward_raycast * level_scale
+	first_person_camera.near = default_near_plane * level_scale
+	forward_ray_cast.cast_to = default_forward_raycast * level_scale
 
 func get_accel_vector() -> Vector3:
 	var basis = entity.transform.basis
@@ -67,8 +67,8 @@ func frame_update(_delta: float):
 	player_entity.mouse_delta = Vector2.ZERO
 
 	player_body.rotate_y(deg2rad(-mouse_delta.x * player_entity.horiz_rotation_speed / 100))
-	firstPersonCamera.rotate_x(deg2rad(-mouse_delta.y * player_entity.vert_rotation_speed / 100))
-	firstPersonCamera.rotation_degrees.x = clamp(firstPersonCamera.rotation_degrees.x, player_entity.min_x_rotation, player_entity.max_x_rotation)
+	first_person_camera.rotate_x(deg2rad(-mouse_delta.y * player_entity.vert_rotation_speed / 100))
+	first_person_camera.rotation_degrees.x = clamp(first_person_camera.rotation_degrees.x, player_entity.min_x_rotation, player_entity.max_x_rotation)
 
 func input_update(event: InputEvent):
 	if event is InputEventMouseMotion:

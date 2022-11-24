@@ -4,6 +4,7 @@ class_name VRLevelController
 const vr_button_scene = preload("res://entities/ui/vr/VRButton.tscn")
 const level_manager_scene = preload("res://globals/managers/LevelManager.tscn")
 const ground_scene = preload("res://entities/voxels/ground/Ground.tscn")
+const vr_player_scene = preload("res://entities/player/VRPlayer.tscn")
 
 onready var xr_origin: ARVROrigin = $ARVROrigin
 onready var left_hand: Spatial = $ARVROrigin/LeftHand
@@ -77,7 +78,7 @@ func start_level_initialization():
 	var left_edge_length = tl_to_bl.length()
 	var top_edge_length = tl_to_tr.length()
 
-	var level_scale = .03
+	var level_scale = max(.03, min(left_edge_length, top_edge_length) / 40.0)
 	
 	var level = level_manager_scene.instance()
 	level.scale = Vector3.ONE * level_scale
@@ -91,9 +92,8 @@ func start_level_initialization():
 	add_child(level)
 
 	level.look_at((top_left_pos + top_right_pos) / 2.0, Vector3.UP)
-
-
+	level.add_child(vr_player_scene.instance())
 
 func _process(_delta: float):
 	if main_vr_button != null:
-		main_vr_button.global_translation = left_hand.global_translation + Vector3(0, .3, 0)
+		main_vr_button.global_translation = left_hand.global_translation + Vector3(.3, .3, 0)

@@ -18,10 +18,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.32358, 0, 4.56837 )
 
 [node name="Grunt" parent="LevelManager" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.84489, 2.28881e-05, 0.827504 )
-max_health = null
-movement_speed = null
-gravity = null
-attack_cooldown = null
 
 [node name="ScrapTurret" parent="LevelManager" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.880031, 3.29018e-05, 5.17234 )

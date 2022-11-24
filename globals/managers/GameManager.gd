@@ -7,6 +7,8 @@ var nav_manager: NavManager = null
 var is_scene_loaded := false
 signal scene_loaded
 
+var is_vr_enabled := false
+
 func _ready():
 	yield(get_tree().get_root(), "ready")
 	is_scene_loaded = true

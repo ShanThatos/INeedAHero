@@ -8,6 +8,7 @@ const WHITE = Color(1, 1, 1, .5)
 
 var color = WHITE
 var lifetime = 5
+var stroke = 1
 
 var active_gizmos = []
 
@@ -16,14 +17,14 @@ func create_line(start: Vector3, end: Vector3, add_to_scene := true):
 	line.get_node("MeshInstance").get_active_material(0).albedo_color = color
 	if start.x == end.x and start.z == end.z:
 		line.translation = start
-		line.scale_object_local(Vector3(1, 1, start.distance_to(end)))
+		line.scale_object_local(Vector3(stroke, stroke, start.distance_to(end)))
 		if start.y < end.y:
 			line.rotation_degrees.x = 90
 		else:
 			line.rotation_degrees.x = -90
 	else:
 		line.look_at_from_position(start, end, Vector3.UP)
-		line.scale_object_local(Vector3(1, 1, start.distance_to(end)))
+		line.scale_object_local(Vector3(stroke, stroke, start.distance_to(end)))
 	if add_to_scene:
 		add_gizmo_to_scene(line)
 	return line
