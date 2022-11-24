@@ -1,9 +1,12 @@
 class_name ArrayUtils
 
-static func _special_call_with_args(el, function, arguments: Array):
+static func _special_call_with_args(el, function, arguments: Array, optional := false):
 	if function is String:
-		assert(el.has_method(function), "Object does not have method " + function)
-		return el.callv(function, arguments)
+		var has_method = el.has_method(function)
+		assert(has_method or optional, "Method not found: " + function)
+		if has_method:
+			return el.callv(function, arguments)
+		return null
 	elif function is FuncRef:
 		var args_with_el = [el]
 		args_with_el.append_array(arguments)
@@ -14,10 +17,10 @@ static func _special_call_with_args(el, function, arguments: Array):
 
 # given a function: String, call that function for each element
 # fiven a function: FuncRef, call the function and pass each element as an argument
-static func foreach(arr: Array, function, arguments: Array = []):
+static func foreach(arr: Array, function, arguments: Array = [], optional := false):
 	var results = []
 	for el in arr:
-		results.append(_special_call_with_args(el, function, arguments))
+		results.append(_special_call_with_args(el, function, arguments, optional))
 	return results
 
 static func all(arr: Array, function, arguments: Array = []) -> bool:
@@ -32,11 +35,11 @@ static func any(arr: Array, function, arguments: Array = []) -> bool:
 			return true
 	return false
 
-static func flatten(arr1: Array):
-	var results = []
-	for el in arr1:
-		if el is Array:
-			results.append_array(flatten(el))
-		else:
-			results.append(el)
-	return results
+# static func flatten(arr1: Array) -> Array:
+# 	var results = []
+# 	for el in arr1:
+# 		if el is Array:
+# 			results.append_array(flatten(el))
+# 		else:
+# 			results.append(el)
+# 	return results

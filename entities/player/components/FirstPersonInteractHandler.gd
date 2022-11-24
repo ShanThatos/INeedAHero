@@ -16,7 +16,7 @@ func get_focused_voxel(active_voxel := true):
 		return voxel_coords
 	return null
 
-func frame_update(entity: PlayerEntity, _delta: float):
+func frame_update(_delta: float):
 	var inventory = entity.get_component("InventoryComponent")
 	var current_item = inventory.current_item
 	var items = inventory.items

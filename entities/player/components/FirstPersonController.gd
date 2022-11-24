@@ -10,7 +10,7 @@ var default_forward_raycast: Vector3
 
 func get_component_name(): return "FirstPersonController"
 
-func start(entity: PlayerEntity):
+func start():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	firstPersonCamera = entity.get_node("FirstPersonCamera")
 	forwardRayCast = firstPersonCamera.get_node("ForwardRayCast")
@@ -33,7 +33,7 @@ func get_accel_vector() -> Vector3:
 	var accel_vector = forward * input_axis.y + right * input_axis.x
 	return accel_vector
 
-func physics_update(entity, delta: float):
+func physics_update(delta: float):
 	update_level_scaled_values()
 	var scale_multiplier = GameManager.level_manager.get_level_scale()
 	var delta_scale_multiplier = delta * scale_multiplier
@@ -59,7 +59,7 @@ func physics_update(entity, delta: float):
 	velocity = player_body.move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true, 4, deg2rad(50))
 	player_entity.velocity = velocity
 
-func frame_update(entity, _delta: float):
+func frame_update(_delta: float):
 	var player_entity = entity as PlayerEntity
 	var player_body = entity as KinematicBody
 	
@@ -70,6 +70,6 @@ func frame_update(entity, _delta: float):
 	firstPersonCamera.rotate_x(deg2rad(-mouse_delta.y * player_entity.vert_rotation_speed / 100))
 	firstPersonCamera.rotation_degrees.x = clamp(firstPersonCamera.rotation_degrees.x, player_entity.min_x_rotation, player_entity.max_x_rotation)
 
-func input_update(entity: PlayerEntity, event: InputEvent):
+func input_update(event: InputEvent):
 	if event is InputEventMouseMotion:
 		entity.mouse_delta += event.relative

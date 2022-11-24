@@ -13,7 +13,7 @@ var active_mesh_key: String
 
 func get_component_name(): return "BlockPreviewComponent"
 
-func start(_entity):
+func start():
 	preview_node = preview_node_scene.instance()
 	tween = preview_node.get_node("Tween")
 	GameManager.voxel_manager.add_child(preview_node)
@@ -25,7 +25,7 @@ func start(_entity):
 func get_active_mesh():
 	return meshes[active_mesh_key]
 
-func frame_update(entity: PlayerEntity, _delta: float):
+func frame_update(_delta: float):
 	var inventory = entity.get_component("InventoryComponent")
 	var item_id = inventory.get_current_item_object().item_id
 
@@ -111,6 +111,6 @@ func preview_voxel_break():
 
 	preview_node.visible = true
 
-func input_update(_entity, event: InputEvent):
+func input_update(event: InputEvent):
 	if event.is_action_pressed("rotate_interact", true):
 		get_active_mesh().rotate_y(PI / 2)

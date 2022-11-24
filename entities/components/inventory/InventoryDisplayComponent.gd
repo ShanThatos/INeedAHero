@@ -8,7 +8,7 @@ var inventory
 
 func get_component_name(): return "InventoryDisplayComponent"
 
-func start(_entity):
+func start():
 	item_slots = GameManager.level_manager.get_node("./UI/InventoryDisplay").get_children()
 
 	inventory = entity.get_component("InventoryComponent")
@@ -42,7 +42,7 @@ func _on_change_current_item(old_item_index: int, new_item_index: int):
 	item_slots[old_item_index].get_node("IsActive").visible = false
 	item_slots[new_item_index].get_node("IsActive").visible = true
 
-func input_update(_entity, event: InputEvent):
+func input_update(event: InputEvent):
 	if event is InputEventKey and event.is_pressed() and !event.echo:
 		var num_key = event.unicode - 48
 		if num_key >= 0 and num_key <= 9:

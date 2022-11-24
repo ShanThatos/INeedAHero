@@ -8,7 +8,8 @@ func _ready():
 	validate_components()
 	if !GameManager.is_scene_loaded:
 		yield(GameManager, "scene_loaded")
-	ArrayUtils.foreach(components, funcref(self, "initiate_component"))
+	ArrayUtils.foreach(components, "set", ["entity", self])
+	ArrayUtils.foreach(components, "start", [], true)
 	start()
 
 func validate_components():
@@ -16,11 +17,6 @@ func validate_components():
 	for i in range(names.size() - 1):
 		assert(names[i] != "", "Component name cannot be empty")
 		assert(names.find(names[i]) == i, "Component name " + names[i] + " is not unique")
-
-func initiate_component(component):
-	component.entity = self
-	if component.has_method("start"):
-		component.start(self)
 
 func get_component(component_name: String):
 	for component in components:
@@ -31,23 +27,14 @@ func get_component(component_name: String):
 func has_component(component_name: String):
 	return get_component(component_name) != null
 
-func add_component(component):
-	components.append(component)
-	initiate_component(component)
-
-func call_foreach_component(method_name: String, args: Array = []):
-	for component in components:
-		if component.enabled and component.has_method(method_name):
-			component.callv(method_name, args)
-
 func _physics_process(delta):
-	call_foreach_component("physics_update", [self, delta])
+	ArrayUtils.foreach(components, "physics_update", [delta], true)
 
 func _process(delta):
-	call_foreach_component("frame_update", [self, delta])
+	ArrayUtils.foreach(components, "frame_update", [delta], true)
 
 func _input(event):
-	call_foreach_component("input_update", [self, event])
+	ArrayUtils.foreach(components, "input_update", [event], true)
 
 
 

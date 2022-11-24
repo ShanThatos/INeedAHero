@@ -11,11 +11,8 @@ signal _on_death
 
 func get_component_name(): return "HealthComponent"
 
-func start(entity):
+func start():
 	current_health = entity.max_health
-
-func physics_update(_entity, _delta: float):
-	pass
 
 func regen_health(amount: float):
 	current_health = min(current_health + amount, entity.max_health)

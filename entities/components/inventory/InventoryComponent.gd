@@ -12,7 +12,7 @@ signal _on_change_item(item_index)
 
 func get_component_name(): return "InventoryComponent"
 
-func start(_entity):
+func start():
 	var Item = load(FileUtils.find_script("Item", FileUtils.get_script_base_dir(self)))
 	for _i in range(10):
 		var item = Item.new()

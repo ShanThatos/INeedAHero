@@ -12,38 +12,41 @@ func get_component_name(): return "StateMachine"
 func preload_states(): 
 	return []
 
-func start(entity):
+func start():
 	
 	states = preload_states()
 	states = ArrayUtils.foreach(states, "new")
-	ArrayUtils.foreach(states, "set_machine", [self])
-	ArrayUtils.foreach(states, "set_entity", [entity])
+	ArrayUtils.foreach(states, "set", ["machine", self])
+	ArrayUtils.foreach(states, "set", ["entity", entity])
 
 	var state_names = ArrayUtils.foreach(states, "get_state_name")
 	for state_name in state_names:
 		assert(state_name != "", "State name cannot be empty")
 		assert(state_names.count(state_name) == 1, "State name must be unique")
 	
-	ArrayUtils.foreach(states, "start")
+	ArrayUtils.foreach(states, "start", [], true)
 	
 	switch_state(states[0])
 
-func physics_update(_entity, _delta: float):
-	if current_state >= 0 and current_state < states.size():
-		states[current_state].physics_update(_delta)
-	
+func check_should_enter():
 	for state in states:
-		if state.should_enter():
+		if state.has_method("should_enter") and state.should_enter():
 			switch_state(state)
 
+func call_for_current_state(method_name, args := []):
+	if current_state >= 0 and current_state < states.size():
+		if states[current_state].has_method(method_name):
+			states[current_state].callv(method_name, args)
 
-# func frame_update(_entity, _delta: float):
-# 	pass
+func physics_update(delta: float):
+	call_for_current_state("physics_update", [delta])
+	check_should_enter()
 
-# func input_update(_entity, _event: InputEvent):
-# 	pass
+func frame_update(_delta: float):
+	call_for_current_state("frame_update")
 
-
+func input_update(event: InputEvent):
+	call_for_current_state("input_update", [event])
 
 func switch_state(next_state):
 	var next_state_name: String = ""
@@ -63,11 +66,9 @@ func switch_state(next_state):
 	
 	assert(next_state_index != -1, "Cannot find state " + next_state_name)
 
-	if current_state >= 0 and current_state < states.size():
-		states[current_state].exit()
+	call_for_current_state("exit")
 	current_state = next_state_index
-	if current_state >= 0 and current_state < states.size():
-		states[current_state].enter()
+	call_for_current_state("enter")
 
 func current_state_matches(state_names: Array):
 	if current_state >= 0 and current_state < states.size():

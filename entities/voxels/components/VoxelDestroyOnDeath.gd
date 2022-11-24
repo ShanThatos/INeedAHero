@@ -3,7 +3,7 @@ class_name VoxelDestroyOnDeath
 
 func get_component_name(): return "VoxelDestroyOnDeath"
 
-func start(entity):
+func start():
     assert(entity.has_component("HealthComponent"), "VoxelDestroyOnDeath requires a HealthComponent")
     entity.get_component("HealthComponent").connect("_on_death", self, "_on_death")
 
