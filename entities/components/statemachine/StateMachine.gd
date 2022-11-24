@@ -15,6 +15,7 @@ func preload_states():
 func start():
 	
 	states = preload_states()
+	assert(states.size() > 0, "No states to load")
 	states = ArrayUtils.foreach(states, "new")
 	ArrayUtils.foreach(states, "set", ["machine", self])
 	ArrayUtils.foreach(states, "set", ["entity", entity])

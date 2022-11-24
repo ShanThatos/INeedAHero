@@ -1,10 +1,10 @@
 extends Entity
 class_name GruntEntity
 
-export(float) 	var max_health: float = 30
-export(float) 	var movement_speed: float = 2.0
-export(float) 	var gravity: float = 10
-export(float)	var attack_cooldown: float = 1.0
+export(float) 	var max_health := 30.0
+export(float) 	var movement_speed := 2.0
+export(float) 	var gravity := 10.0
+export(float)	var attack_cooldown := 1.0
 
 onready var animator: AnimationPlayer = $Animator
 onready var target_zone: Area = $TargetZone
