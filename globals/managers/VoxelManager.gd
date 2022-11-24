@@ -59,6 +59,8 @@ func place_voxel(voxel_name: String, voxel_pos: Vector3, rotation_y: float = 0):
 		for dy in range(voxel_size.y):
 			for dz in range(voxel_size.z):
 				voxels[voxel_pos + Vector3(dx, dy, dz)] = entity
+	
+	return entity
 
 func can_remove_entity(voxel_pos: Vector3) -> bool:
 	var voxel = get_voxel_at(voxel_pos)

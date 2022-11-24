@@ -12,22 +12,22 @@ signal _on_death
 func get_component_name(): return "HealthComponent"
 
 func start(entity):
-    current_health = entity.max_health
+	current_health = entity.max_health
 
 func physics_update(_entity, _delta: float):
-    pass
+	pass
 
 func regen_health(amount: float):
-    current_health = min(current_health + amount, entity.max_health)
-    emit_signal("_on_regen")
+	current_health = min(current_health + amount, entity.max_health)
+	emit_signal("_on_regen")
 
 func take_damage(damage: float):
-    if is_invincible or is_dead: 
-        return
+	if is_invincible or is_dead: 
+		return
 
-    current_health -= damage
-    if current_health <= 0:
-        is_dead = true
-        emit_signal("_on_death")
-    else:
-        emit_signal("_on_take_damage")
+	current_health -= damage
+	if current_health <= 0:
+		is_dead = true
+		emit_signal("_on_death")
+	else:
+		emit_signal("_on_take_damage")

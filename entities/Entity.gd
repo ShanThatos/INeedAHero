@@ -28,6 +28,9 @@ func get_component(component_name: String):
 			return component
 	return null
 
+func has_component(component_name: String):
+	return get_component(component_name) != null
+
 func add_component(component):
 	components.append(component)
 	initiate_component(component)

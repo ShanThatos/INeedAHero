@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/voxels/blocks/BlockMesh.res" type="CubeMesh" id=1]
+[ext_resource path="res://entities/voxels/VoxelEntity.gd" type="Script" id=2]
 [ext_resource path="res://entities/voxels/blocks/Block1x1x1Shape.res" type="Shape" id=3]
 [ext_resource path="res://entities/voxels/blocks/ScrapBlockTexture.jpg" type="Texture" id=4]
 
@@ -9,6 +10,10 @@ albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 3, 2, 1 )
 
 [node name="ScrapBlock" type="Spatial"]
+script = ExtResource( 2 )
+health_component = true
+max_health = 10
+destroy_on_death_component = true
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5 )

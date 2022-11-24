@@ -68,3 +68,8 @@ func switch_state(next_state):
 	current_state = next_state_index
 	if current_state >= 0 and current_state < states.size():
 		states[current_state].enter()
+
+func current_state_matches(state_names: Array):
+	if current_state >= 0 and current_state < states.size():
+		return states[current_state].get_state_name() in state_names
+	return false
