@@ -279,7 +279,7 @@ _global_script_class_icons={
 [application]
 
 config/name="INeedAHero"
-run/main_scene="res://entities/levels/VRLevel.tscn"
+run/main_scene="res://entities/levels/MainLevel.tscn"
 config/icon="res://icon.png"
 
 [autoload]

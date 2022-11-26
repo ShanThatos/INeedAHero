@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="HealthBar2D" type="Control"]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+margin_right = 120.0
+margin_bottom = 20.0
+max_value = 1.0
+value = 0.5
+percent_visible = false

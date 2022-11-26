@@ -7,12 +7,7 @@ func get_state_name():
 	return "GruntTargetState"
 
 func enter():
-	print("Entering GruntTargetState")
 	timer = entity.get_tree().create_timer(entity.attack_cooldown)
-	# print(GameManager.level_manager.base_entity.get_center())
-
-func exit():
-	print("Exiting GruntTargetState")
 
 func is_near_base():
 	var target_zone_area = entity.target_zone as Area

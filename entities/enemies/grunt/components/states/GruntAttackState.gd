@@ -5,5 +5,4 @@ func get_state_name():
     return "GruntAttackState"
 
 func enter():
-    print("Entered GruntAttackState")
-    start_animation("GruntAttack", ["GruntTargetState"])
+    start_animation("GruntAttack", ["GruntIdleState", "GruntNavState", "GruntTargetState"])

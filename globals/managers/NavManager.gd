@@ -80,6 +80,14 @@ class AStarSolver extends Reference:
 				neighbors.append(test_positions[0])
 		return neighbors
 	
+	func get_path_to(all_nodes: Array, current_node: AStarNode):
+		var current = current_node.id
+		var path = []
+		while current != -1:
+			path.push_front(all_nodes[current].pos)
+			current = all_nodes[current].prev
+		return path
+
 	func find_path_voxel(_voxel_start: Vector3, _voxel_ends: Array):
 		voxel_start = _voxel_start
 		voxel_ends = _voxel_ends
@@ -105,12 +113,7 @@ class AStarSolver extends Reference:
 			visited.append(voxel_pos)
 
 			if heuristic(voxel_pos) < step_size or current_node.depth >= max_path:
-				var current = current_node.id
-				var path = []
-				while current != -1:
-					path.push_front(all_nodes[current].pos)
-					current = all_nodes[current].prev
-				return path
+				return get_path_to(all_nodes, current_node)
 
 			var neighbors = get_neighbors(current_node)
 			for neighbor in neighbors:
@@ -120,7 +123,14 @@ class AStarSolver extends Reference:
 				all_nodes.append(new_node)
 				new_node.prev = current_node.id
 		
-		return null
+		var best_node = all_nodes[0]
+		for node in all_nodes:
+			if node.heuristic < best_node.heuristic:
+				best_node = node
+			elif node.heuristic == best_node.heuristic and node.cost < best_node.cost:
+				best_node = node
+
+		return get_path_to(all_nodes, best_node)
 
 	func find_path_global(start: Vector3, ends: Array):
 		var vm = GameManager.voxel_manager

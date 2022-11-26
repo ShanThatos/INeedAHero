@@ -35,6 +35,19 @@ static func any(arr: Array, function, arguments: Array = []) -> bool:
 			return true
 	return false
 
+static func min(arr: Array, function = null):
+	assert(arr.size() > 0, "Array must have at least one element")
+	var result = null
+	var result_score = null
+	for el in arr:
+		var score = el
+		if function:
+			score = _special_call_with_args(el, function, [])
+		if result_score == null or score < result_score:
+			result = el
+			result_score = score
+	return result
+
 # static func flatten(arr1: Array) -> Array:
 # 	var results = []
 # 	for el in arr1:

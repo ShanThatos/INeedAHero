@@ -3,6 +3,7 @@ class_name NavState
 
 
 var nav_path: Array
+var time_stuck: float
 
 var astar_solver
 
@@ -10,8 +11,9 @@ func start():
 	astar_solver = GameManager.nav_manager.AStarSolver.new()
 
 func find_path_voxel(targets: Array):
-	nav_path = astar_solver.find_path_voxel(GameManager.voxel_manager.global_to_voxel(entity.global_translation, false), targets)
-	nav_path = ArrayUtils.foreach(nav_path, funcref(GameManager.voxel_manager, "voxel_to_global"))
+	var targets_global = ArrayUtils.foreach(targets, funcref(GameManager.voxel_manager, "voxel_to_global"))
+	nav_path = astar_solver.find_path_global(entity.global_translation, targets_global)
+	time_stuck = 0
 
 func follow_path(_delta: float):
 	if has_finished_path():
@@ -41,8 +43,14 @@ func follow_path(_delta: float):
 	var velocity = direction * entity.movement_speed * level_scale
 	velocity.y -= entity.gravity * level_scale
 	var body = entity as KinematicBody
+	var previous_pos = body.global_translation
 	body.move_and_slide(velocity, Vector3.UP)
 	body.look_at(body.global_translation + direction, Vector3.UP)
+
+	if previous_pos.is_equal_approx(body.global_translation):
+		time_stuck += _delta
+	else:
+		time_stuck = 0
 
 func has_finished_path():
 	if nav_path == null or nav_path.size() < 2:
@@ -53,3 +61,7 @@ func has_finished_path():
 		nav_path = []
 		return true
 	return false
+
+# Assums follow_path has been called every frame 
+func is_stuck():
+	return time_stuck > 1

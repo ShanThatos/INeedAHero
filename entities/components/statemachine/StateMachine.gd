@@ -5,6 +5,7 @@ class_name StateMachine
 var states: Array = []
 var current_state: int = -1
 
+var debug_print_state_changes := false
 
 func get_component_name(): return "StateMachine"
 
@@ -13,7 +14,6 @@ func preload_states():
 	return []
 
 func start():
-	
 	states = preload_states()
 	assert(states.size() > 0, "No states to load")
 	states = ArrayUtils.foreach(states, "new")
@@ -66,9 +66,13 @@ func switch_state(next_state):
 			break
 	
 	assert(next_state_index != -1, "Cannot find state " + next_state_name)
-
+	
+	if debug_print_state_changes and current_state != -1:
+		print("Exiting ", states[current_state].get_state_name())
 	call_for_current_state("exit")
 	current_state = next_state_index
+	if debug_print_state_changes:
+		print("Entering ", states[current_state].get_state_name())
 	call_for_current_state("enter")
 
 func current_state_matches(state_names: Array):
