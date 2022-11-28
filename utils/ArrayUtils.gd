@@ -23,17 +23,20 @@ static func foreach(arr: Array, function, arguments: Array = [], optional := fal
 		results.append(_special_call_with_args(el, function, arguments, optional))
 	return results
 
+
 static func all(arr: Array, function, arguments: Array = []) -> bool:
 	for el in arr:
 		if not _special_call_with_args(el, function, arguments):
 			return false
 	return true
 
+
 static func any(arr: Array, function, arguments: Array = []) -> bool:
 	for el in arr:
 		if _special_call_with_args(el, function, arguments):
 			return true
 	return false
+
 
 static func min(arr: Array, function = null):
 	assert(arr.size() > 0, "Array must have at least one element")
@@ -48,11 +51,3 @@ static func min(arr: Array, function = null):
 			result_score = score
 	return result
 
-# static func flatten(arr1: Array) -> Array:
-# 	var results = []
-# 	for el in arr1:
-# 		if el is Array:
-# 			results.append_array(flatten(el))
-# 		else:
-# 			results.append(el)
-# 	return results
