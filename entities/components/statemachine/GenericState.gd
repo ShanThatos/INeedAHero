@@ -23,6 +23,9 @@ var entity
 # func should_enter():
 #     return false
 
+# func detached_physics_update(_delta: float):
+#     pass
+
 func start_timer(time: float, future_states: Array):
     assert(future_states.size() > 0, "A timed state must have at least one future state")
     yield(entity.get_tree().create_timer(time), "timeout")

@@ -42,6 +42,7 @@ func call_for_current_state(method_name, args := []):
 func physics_update(delta: float):
 	call_for_current_state("physics_update", [delta])
 	check_should_enter()
+	ArrayUtils.foreach(states, "detached_physics_update", [delta], true)
 
 func frame_update(_delta: float):
 	call_for_current_state("frame_update")

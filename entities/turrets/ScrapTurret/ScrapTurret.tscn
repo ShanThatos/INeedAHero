@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://entities/turrets/ScrapTurret/ScrapTurret.gd" type="Script" id=1]
 
@@ -6,12 +6,17 @@
 radius = 0.3
 height = 0.2
 
+[sub_resource type="SphereShape" id=2]
+resource_local_to_scene = true
+
 [node name="ScrapTurret" type="KinematicBody"]
 collision_layer = 33
+collision_mask = 0
 script = ExtResource( 1 )
+attack_cooldown = 3.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.35, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.4, 0 )
 shape = SubResource( 1 )
 
 [node name="Body" type="Spatial" parent="."]
@@ -41,8 +46,18 @@ radius = 0.04
 height = 0.5
 sides = 6
 
-[node name="BulletRayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.566069, -0.438756 )
-enabled = true
-cast_to = Vector3( 0, 0, -1 )
-collision_mask = 44
+[node name="Head" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527803, 0 )
+
+[node name="TargetCheckRaycast" type="RayCast" parent="Head"]
+collision_mask = 12
+
+[node name="TargetCheckArea" type="Area" parent="Head"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Head/TargetCheckArea"]
+shape = SubResource( 2 )
+
+[node name="ProjectileSpawnPoint" type="Position3D" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0409328, -0.47521 )
