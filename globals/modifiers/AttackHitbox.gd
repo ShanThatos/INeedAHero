@@ -13,15 +13,15 @@ func reset_attack():
     attacked = []
 
 func on_body_entered(body: Node):
-    if !("voxel_entity" in body.get_meta_list()):
+    if !("entity" in body.get_meta_list()):
         return
-    var voxel_entity = body.get_meta("voxel_entity")
-    if !(voxel_entity is Entity):
+    var entity = body.get_meta("entity")
+    if !(entity is Entity):
         return
-    if !voxel_entity.has_component("HealthComponent"):
+    if !entity.has_component("HealthComponent"):
         return
-    if voxel_entity in attacked:
+    if entity in attacked:
         return
     
-    attacked.append(voxel_entity)
-    voxel_entity.get_component("HealthComponent").take_damage(damage)
+    attacked.append(entity)
+    entity.get_component("HealthComponent").take_damage(damage)

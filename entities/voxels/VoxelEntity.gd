@@ -5,11 +5,6 @@ export var health_component := false
 export var max_health := 0
 export var destroy_on_death_component := false
 
-func start():
-	var bodies = NodeUtils.get_all_children_with_type(self, PhysicsBody)
-	for body in bodies:
-		body.set_meta("voxel_entity", self)
-
 func register_components():
 	var generic_components = []
 	if health_component:

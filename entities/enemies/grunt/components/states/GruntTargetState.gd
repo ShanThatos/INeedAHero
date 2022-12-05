@@ -13,9 +13,9 @@ func is_near_base():
 	var target_zone_area = entity.target_zone as Area
 	var bodies = target_zone_area.get_overlapping_bodies()
 	for body in bodies:
-		if !("voxel_entity" in body.get_meta_list()):
+		if !("entity" in body.get_meta_list()):
 			continue
-		var voxel = body.get_meta("voxel_entity")
+		var voxel = body.get_meta("entity")
 		if voxel == GameManager.level_manager.base_entity:
 			return true
 	return false

@@ -19,6 +19,8 @@ func regen_health(amount: float):
 	emit_signal("_on_regen")
 
 func take_damage(damage: float):
+	print(entity, " took ", damage, " damage")
+
 	if is_invincible or is_dead: 
 		return
 

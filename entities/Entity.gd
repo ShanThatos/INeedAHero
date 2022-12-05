@@ -12,6 +12,10 @@ func _ready():
 	ArrayUtils.foreach(components, "start", [], true)
 	start()
 
+	var bodies = NodeUtils.get_all_children_with_type(self, PhysicsBody)
+	for body in bodies:
+		body.set_meta("entity", self)
+
 func validate_components():
 	var names: Array = ArrayUtils.foreach(components, "get_component_name")
 	for i in range(names.size() - 1):
