@@ -1,7 +1,15 @@
 extends Spatial
 class_name LevelManager
 
+var grunt_enemy_scene = preload("res://entities/enemies/Grunt/Grunt.tscn")
+
+var ground
 var base_entity
+
+var spawn_timer = 0
+
+var is_level_manager_loaded = false
+signal level_manager_loaded
 
 func _ready():
 	name = "LevelManager"
@@ -18,7 +26,16 @@ func _ready():
 		for z in range(-2, 3):
 			if GameManager.voxel_manager.can_place_voxel("ScrapBlock", Vector3(x, 0, z)):
 				GameManager.voxel_manager.place_voxel("ScrapBlock", Vector3(x, 0, z))
+	
+	ground = get_node("Ground")
+
+	spawn_timer = 10.0
+
+	is_level_manager_loaded = true
+	emit_signal("level_manager_loaded")
 
 func get_level_scale() -> float:
 	return scale.x
 
+func _physics_process(_delta: float):
+	pass

@@ -78,19 +78,19 @@ func start_level_initialization():
 	var left_edge_length = tl_to_bl.length()
 	var top_edge_length = tl_to_tr.length()
 
-	var level_scale = max(.03, min(left_edge_length, top_edge_length) / 40.0)
+	var level_scale = max(.015, min(left_edge_length, top_edge_length) / 40.0)
 	
 	var level = level_manager_scene.instance()
 	level.scale = Vector3.ONE * level_scale
 
 	var ground = ground_scene.instance()
 	ground.scale = Vector3(top_edge_length / level_scale, 1, left_edge_length / level_scale)
-
-	level.translation = (top_right_pos + bottom_left_pos) / 2.0
+	ground.name = "Ground"
 
 	level.add_child(ground)
 	add_child(level)
 
+	level.global_translation = (top_right_pos + bottom_left_pos) / 2.0
 	level.look_at((top_left_pos + top_right_pos) / 2.0, Vector3.UP)
 	level.add_child(vr_player_scene.instance())
 

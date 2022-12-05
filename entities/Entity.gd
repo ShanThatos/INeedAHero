@@ -32,13 +32,16 @@ func has_component(component_name: String):
 	return get_component(component_name) != null
 
 func _physics_process(delta):
-	ArrayUtils.foreach(components, "physics_update", [delta], true)
+	if !is_queued_for_deletion():
+		ArrayUtils.foreach(components, "physics_update", [delta], true)
 
 func _process(delta):
-	ArrayUtils.foreach(components, "frame_update", [delta], true)
+	if !is_queued_for_deletion():
+		ArrayUtils.foreach(components, "frame_update", [delta], true)
 
 func _input(event):
-	ArrayUtils.foreach(components, "input_update", [event], true)
+	if !is_queued_for_deletion():
+		ArrayUtils.foreach(components, "input_update", [event], true)
 
 
 

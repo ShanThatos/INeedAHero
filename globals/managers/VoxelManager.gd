@@ -26,6 +26,11 @@ func get_voxel_coord_for(voxel: Spatial) -> Vector3:
 func can_place_voxel(voxel_name: String, voxel_pos: Vector3) -> bool:
 	if voxel_pos.y < 0:
 		return false
+	
+	if GameManager.level_manager.ground:
+		var ground_size = GameManager.level_manager.ground.scale
+		if abs(voxel_pos.x + .5) >= ground_size.x / 2 - 1.5 or abs(voxel_pos.z + .5) >= ground_size.z / 2 - 1.5:
+			return false
 
 	var voxel_size = VoxelGlobals.VOXEL_DATA[voxel_name]["size"]
 	for dx in range(voxel_size.x):

@@ -6,7 +6,8 @@ enum ItemType {
     SCRAP,
     BASE,
     SCRAP_BLOCK,
-    SCRAP_RAMP
+    SCRAP_RAMP,
+    SCRAP_TURRET
 }
 
 enum ItemAction {
@@ -53,5 +54,16 @@ const ITEM_DATA = {
         "cost": 2,
         "texture": "ScrapRamp.png",
         "text_display": "-{cost}"
+    },
+    ItemType.SCRAP_TURRET: {
+        "name": "Scrap Turret",
+        "action": ItemAction.PLACE,
+        "voxel_name": "ScrapTurret",
+        "cost": 5,
+        "texture": "ScrapTurret.png",
+        "text_display": "-{cost}"
     }
 }
+
+
+# textures stored in "res://entities/ui/items/"

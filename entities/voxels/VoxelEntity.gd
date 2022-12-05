@@ -1,9 +1,9 @@
 extends Entity
 class_name VoxelEntity
 
-export var health_component := false
-export var max_health := 0
-export var destroy_on_death_component := false
+export(bool) var health_component := false
+export(float) var max_health := 0.0
+export(bool) var destroy_on_death_component := false
 
 func register_components():
 	var generic_components = []

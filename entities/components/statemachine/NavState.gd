@@ -15,6 +15,11 @@ func find_path_voxel(targets: Array):
 	nav_path = astar_solver.find_path_global(entity.global_translation, targets_global)
 	time_stuck = 0
 
+	# Gizmos.lifetime = 4.0
+	# Gizmos.stroke = .1
+	# Gizmos.color = Gizmos.RED
+	# Gizmos.create_path(nav_path)
+
 func follow_path(_delta: float):
 	if has_finished_path():
 		return
@@ -26,8 +31,10 @@ func follow_path(_delta: float):
 
 	var distance_to_point = global_pos.distance_to(closest_point)
 
+	var level_scale = GameManager.level_manager.get_level_scale()
+
 	var target
-	if distance_to_point >= .5:
+	if distance_to_point >= level_scale / 2:
 		target = closest_point
 	else:
 		while segment_index > 0 and nav_path.size() > 2:
@@ -39,7 +46,6 @@ func follow_path(_delta: float):
 		return
 	
 	var direction = MathUtils.get_xz_subvector(target - global_pos).normalized()
-	var level_scale = GameManager.level_manager.get_level_scale()
 	var velocity = direction * entity.movement_speed * level_scale
 	velocity.y -= entity.gravity * level_scale
 	var body = entity as KinematicBody
@@ -57,7 +63,7 @@ func has_finished_path():
 		return true
 	var global_pos = entity.global_translation
 	var level_scale = GameManager.level_manager.get_level_scale()
-	if nav_path.size() == 2 and global_pos.distance_to(nav_path[1]) < level_scale / 10:
+	if nav_path.size() == 2 and global_pos.distance_to(nav_path[1]) < level_scale / 2:
 		nav_path = []
 		return true
 	return false

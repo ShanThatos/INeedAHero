@@ -28,7 +28,7 @@ class AStarSolver extends Reference:
 	const XZ_MOVEMENT = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 	const XZ_DIAG_MOVEMENT = [[1, 1], [-1, 1], [-1, -1], [1, -1]]
 
-	var max_path := 10
+	var max_path := 5
 	var height := 1.0
 	var step_size := 1.0
 	var voxel_start: Vector3

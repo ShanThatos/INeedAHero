@@ -1,63 +1,75 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/turrets/ScrapTurret/ScrapTurret.gd" type="Script" id=1]
+[ext_resource path="res://entities/turrets/ScrapTurret/ScrapMaterial.res" type="Material" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
 height = 0.2
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.4, 0.4, 0.4 )
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape" id=3]
 resource_local_to_scene = true
 
-[node name="ScrapTurret" type="KinematicBody"]
-collision_layer = 33
-collision_mask = 0
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+
+[node name="ScrapTurret" type="Spatial"]
 script = ExtResource( 1 )
+health_component = true
+max_health = 30
+destroy_on_death_component = true
 attack_cooldown = 3.0
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.4, 0 )
 shape = SubResource( 1 )
 
-[node name="Body" type="Spatial" parent="."]
+[node name="Body" type="Spatial" parent="StaticBody"]
 
-[node name="MeshInstance" type="MeshInstance" parent="Body"]
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody/Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 2 )
 
-[node name="Head" type="Position3D" parent="."]
+[node name="Head" type="Spatial" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502279, 0 )
 
-[node name="TargetCheckRaycast" type="RayCast" parent="Head"]
+[node name="TargetCheckRaycast" type="RayCast" parent="StaticBody/Head"]
 collision_mask = 12
 
-[node name="TargetCheckArea" type="Area" parent="Head"]
+[node name="TargetCheckArea" type="Area" parent="StaticBody/Head"]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape" parent="Head/TargetCheckArea"]
-shape = SubResource( 2 )
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody/Head/TargetCheckArea"]
+shape = SubResource( 3 )
 
-[node name="ProjectileSpawnPoint" type="Position3D" parent="Head"]
+[node name="ProjectileSpawnPoint" type="Position3D" parent="StaticBody/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00110376, -0.47521 )
 
-[node name="CSGCombiner" type="CSGCombiner" parent="Head"]
+[node name="CSGCombiner" type="CSGCombiner" parent="StaticBody/Head"]
 
-[node name="Dome" type="CSGSphere" parent="Head/CSGCombiner"]
+[node name="Dome" type="CSGSphere" parent="StaticBody/Head/CSGCombiner"]
 radius = 0.2
+material = ExtResource( 2 )
 
-[node name="Barrel" type="CSGCylinder" parent="Head/CSGCombiner"]
+[node name="Barrel" type="CSGCylinder" parent="StaticBody/Head/CSGCombiner"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.164556 )
 radius = 0.05
 height = 0.5
 sides = 6
+material = ExtResource( 2 )
 
-[node name="InnerBarrel" type="CSGCylinder" parent="Head/CSGCombiner"]
+[node name="InnerBarrel" type="CSGCylinder" parent="StaticBody/Head/CSGCombiner"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.357996 )
 operation = 2
 radius = 0.04
 height = 0.158845
 sides = 6
+material = SubResource( 4 )
