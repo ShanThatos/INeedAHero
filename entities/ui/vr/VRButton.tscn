@@ -7,12 +7,11 @@
 [sub_resource type="SphereMesh" id=3]
 
 [node name="VRButton" type="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, -0.2 )
 script = ExtResource( 1 )
-clicker_time = 2.0
+clicker_time = 1.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]

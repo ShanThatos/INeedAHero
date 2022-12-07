@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://entities/enemies/Grunt/GruntEntity.gd" type="Script" id=1]
 [ext_resource path="res://globals/modifiers/AttackHitbox.gd" type="Script" id=2]
+[ext_resource path="res://entities/ui/spatial/healthbar/HealthBar3D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/Grunt/GruntMaterial.res" type="Material" id=4]
+[ext_resource path="res://entities/enemies/Grunt/GruntArmsMaterial.res" type="Material" id=5]
 
 [sub_resource type="Animation" id=5]
 resource_name = "GruntAttack"
@@ -202,6 +205,7 @@ shape = SubResource( 2 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
+material/0 = ExtResource( 4 )
 
 [node name="RightArmContainer" type="Spatial" parent="Body"]
 
@@ -209,6 +213,7 @@ skeleton = NodePath("../..")
 transform = Transform( 0.918867, 0, -0.394567, 0, 1, 0, 0.394567, 0, 0.918867, 0.187519, 0.579723, -0.306381 )
 mesh = SubResource( 4 )
 skeleton = NodePath("../..")
+material/0 = ExtResource( 5 )
 
 [node name="LeftArmContainer" type="Spatial" parent="Body"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -217,6 +222,7 @@ transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform = Transform( 0.918867, 0, -0.394567, 0, 1, 0, 0.394567, 0, 0.918867, 0.187519, 0.579723, -0.306381 )
 mesh = SubResource( 4 )
 skeleton = NodePath("../..")
+material/0 = ExtResource( 5 )
 
 [node name="TargetZone" type="Area" parent="."]
 collision_layer = 0
@@ -235,3 +241,8 @@ damage = 5.0
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackArea"]
 shape = SubResource( 7 )
+
+[node name="HealthBar3D" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 1.17212, 0 )
+visible = false
+show_when_full = false

@@ -13,12 +13,11 @@ var target_body: PhysicsBody = null
 
 func start():
 	turret_head = $StaticBody/Head
-	target_check_raycast = $StaticBody/Head/TargetCheckRaycast
+	target_check_raycast = $StaticBody/TargetCheckRaycast
 	target_check_area = $StaticBody/Head/TargetCheckArea
 	projectile_spawn_point = $StaticBody/Head/ProjectileSpawnPoint
 	
-	var level_scale = GameManager.level_manager.get_level_scale()
-	target_check_area.scale = Vector3.ONE * target_view_distance * level_scale
+	target_check_area.scale = Vector3.ONE * target_view_distance
 
 func register_components():
 	var components := FileUtils.load_scripts(["HealthComponent"], "res://entities/components/")
@@ -29,9 +28,9 @@ func can_see_target(body: PhysicsBody):
 	var level_scale = GameManager.level_manager.get_level_scale()
 	var body_pos = body.global_translation + Vector3.UP * level_scale * .7
 
-	if body_pos.distance_to(turret_head.global_translation) > target_view_distance * level_scale:
+	if body_pos.distance_to(target_check_raycast.global_translation) > target_view_distance * level_scale:
 		return false
 
-	target_check_raycast.cast_to = turret_head.to_local(body_pos)
+	target_check_raycast.cast_to = target_check_raycast.to_local(body_pos)
 	target_check_raycast.force_raycast_update()
 	return target_check_raycast.get_collider() == body

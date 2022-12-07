@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://globals/managers/LevelManager.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
-[ext_resource path="res://entities/ui/ItemSlot.tscn" type="PackedScene" id=3]
-[ext_resource path="res://entities/levels/TempCamera.gd" type="Script" id=4]
+[ext_resource path="res://entities/ui/InventoryDisplay.tscn" type="PackedScene" id=3]
 
 [node name="LevelManager" type="Spatial"]
 script = ExtResource( 1 )
@@ -29,7 +28,7 @@ margin_top = -2.0
 margin_right = 2.0
 margin_bottom = 2.0
 
-[node name="InventoryDisplay" type="HBoxContainer" parent="UI"]
+[node name="InventoryDisplay" parent="UI" instance=ExtResource( 3 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -37,45 +36,4 @@ anchor_bottom = 1.0
 margin_left = -300.0
 margin_top = -60.0
 margin_right = 300.0
-custom_constants/separation = 0
-
-[node name="ItemSlot0" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-
-[node name="ItemSlot1" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 60.0
-margin_right = 120.0
-
-[node name="ItemSlot2" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 120.0
-margin_right = 180.0
-
-[node name="ItemSlot3" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 180.0
-margin_right = 240.0
-
-[node name="ItemSlot4" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 240.0
-margin_right = 300.0
-
-[node name="ItemSlot5" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 300.0
-margin_right = 360.0
-
-[node name="ItemSlot6" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 360.0
-margin_right = 420.0
-
-[node name="ItemSlot7" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 420.0
-margin_right = 480.0
-
-[node name="ItemSlot8" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 480.0
-margin_right = 540.0
-
-[node name="ItemSlot9" parent="UI/InventoryDisplay" instance=ExtResource( 3 )]
-margin_left = 540.0
-margin_right = 600.0
-
-[node name="Camera" type="Camera" parent="."]
-script = ExtResource( 4 )
+margin_bottom = 0.0

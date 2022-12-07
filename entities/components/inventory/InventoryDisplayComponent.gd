@@ -6,10 +6,10 @@ const ITEM_DATA = ItemGlobals.ITEM_DATA
 var item_slots: Array
 var inventory
 
-func get_component_name(): return "InventoryDisplayComponent"
+func get_component_name(): return "InventoryDisplay"
 
 func start():
-	item_slots = GameManager.level_manager.get_node("./UI/InventoryDisplay").get_children()
+	item_slots = get_inventory_display().get_children()
 
 	inventory = entity.get_component("InventoryComponent")
 	inventory.connect("_on_change_current_item", self, "_on_change_current_item")
@@ -49,3 +49,6 @@ func input_update(event: InputEvent):
 			if num_key == 0:
 				num_key = 10
 			entity.get_component("InventoryComponent").current_item = num_key - 1
+
+func get_inventory_display():
+	return GameManager.level_manager.get_node("./UI/InventoryDisplay")

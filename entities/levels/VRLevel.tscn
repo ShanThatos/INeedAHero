@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://addons/godot-openxr/config/OpenXRHand.gdns" type="Script" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/center_ball_material.tres" type="Material" id=2]
@@ -33,15 +33,6 @@ material = ExtResource( 7 )
 top_radius = 0.005
 bottom_radius = 0.005
 height = 1.0
-
-[sub_resource type="SphereMesh" id=6]
-radius = 0.015
-height = 0.03
-radial_segments = 20
-rings = 10
-
-[sub_resource type="SpatialMaterial" id=7]
-albedo_color = Color( 0.47451, 0.988235, 1, 1 )
 
 [sub_resource type="SphereMesh" id=9]
 material = ExtResource( 2 )
@@ -128,6 +119,8 @@ mesh = SubResource( 8 )
 [node name="IndexTip" type="MeshInstance" parent="ARVROrigin/LeftHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05 )
 mesh = SubResource( 8 )
+script = ExtResource( 9 )
+global_id = "left_index_tip"
 
 [node name="IndexDistal_Bone" type="MeshInstance" parent="ARVROrigin/LeftHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal"]
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )
@@ -253,10 +246,6 @@ mesh = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )
 mesh = SubResource( 3 )
 
-[node name="Palm" type="MeshInstance" parent="ARVROrigin/LeftHand"]
-mesh = SubResource( 6 )
-material/0 = SubResource( 7 )
-
 [node name="RightHand" type="Spatial" parent="ARVROrigin"]
 script = ExtResource( 1 )
 hand = 1
@@ -316,6 +305,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05 )
 mesh = SubResource( 10 )
 script = ExtResource( 9 )
 global_id = "right_index_tip"
+
+[node name="VRButtonClicker" type="Area" parent="ARVROrigin/RightHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal/IndexTip"]
+script = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ARVROrigin/RightHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal/IndexTip/VRButtonClicker"]
+transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0 )
+shape = SubResource( 5 )
 
 [node name="IndexDistal_Bone" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/IndexMetacarpal/IndexProximal/IndexIntermediate/IndexDistal"]
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )
@@ -440,17 +436,6 @@ mesh = SubResource( 11 )
 [node name="LittleMetacarpal_Bone" type="MeshInstance" parent="ARVROrigin/RightHand/Wrist/LittleMetacarpal"]
 transform = Transform( 1, 0, 0, 0, -1.09278e-09, -1, 0, 0.025, -4.37114e-08, 0, 0, -0.025 )
 mesh = SubResource( 11 )
-
-[node name="Palm" type="MeshInstance" parent="ARVROrigin/RightHand"]
-mesh = SubResource( 6 )
-material/0 = SubResource( 7 )
-
-[node name="VRButtonClicker" type="Area" parent="ARVROrigin/RightHand"]
-script = ExtResource( 4 )
-
-[node name="CollisionShape" type="CollisionShape" parent="ARVROrigin/RightHand/VRButtonClicker"]
-transform = Transform( 0.05, 0, 0, 0, 0.02, 0, 0, 0, 0.05, 0, 0, 0 )
-shape = SubResource( 5 )
 
 [node name="MainLabel" type="Label3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )

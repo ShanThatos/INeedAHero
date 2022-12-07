@@ -8,5 +8,5 @@ func start():
     entity.get_component("HealthComponent").connect("_on_death", self, "_on_death")
 
 func _on_death():
-    print("Dropped ", entity.scrap_drop_amount, " scrap")
+    GameManager.level_manager.player.get_component("InventoryComponent").add_item(ItemGlobals.ItemType.SCRAP, entity.scrap_drop_amount)
     entity.queue_free()

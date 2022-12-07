@@ -5,4 +5,4 @@ func get_state_name():
     return "GruntIdleState"
 
 func enter():
-    start_timer(rand_range(4, 6), ["GruntNavState"])
+    start_timer(rand_range(0, 1), ["GruntNavState"])

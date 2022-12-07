@@ -9,7 +9,7 @@
 [node name="LevelManager" parent="." instance=ExtResource( 1 )]
 
 [node name="Ground" parent="LevelManager" instance=ExtResource( 2 )]
-transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0 )
+transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0 )
 
 [node name="Player" parent="LevelManager" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30666, 0, 4.56837 )

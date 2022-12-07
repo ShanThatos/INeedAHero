@@ -43,6 +43,11 @@ func add_gizmo_to_scene(gizmo):
 	active_gizmos.append([gizmo, lifetime])
 	add_child(gizmo)
 
+func clear_gizmos():
+	for gizmo in active_gizmos:
+		gizmo[0].queue_free()
+	active_gizmos.clear()
+
 func _physics_process(delta):
 	for i in range(active_gizmos.size() - 1, -1, -1):
 		var gizmo = active_gizmos[i][0]

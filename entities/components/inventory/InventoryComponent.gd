@@ -19,7 +19,6 @@ func start():
 		item.inventory = self
 		item.set_to(ItemType.NONE, 0)
 		items.append(item)
-	
 
 func set_current_item(new_current_item):
 	var old_current_item = current_item

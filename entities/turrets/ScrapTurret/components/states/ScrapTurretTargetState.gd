@@ -4,6 +4,7 @@ class_name ScrapTurretTargetState
 func get_state_name(): return "ScrapTurretTargetState"
 
 func physics_update(_delta: float):
+    var level_scale = GameManager.level_manager.get_level_scale()
     var bodies = entity.target_check_area.get_overlapping_bodies()
     var target_body = null
     for body in bodies:
@@ -14,4 +15,5 @@ func physics_update(_delta: float):
     entity.target_body = target_body
     
     if target_body:
-        entity.turret_head.look_at(target_body.global_translation, Vector3.UP)
+        var target_pos = target_body.global_translation + Vector3.UP * level_scale * .7
+        entity.turret_head.look_at(target_pos, Vector3.UP)

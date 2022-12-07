@@ -1,8 +1,8 @@
 extends Node
 
-var level_manager: LevelManager = null
-var voxel_manager: VoxelManager = null
-var nav_manager: NavManager = null
+var level_manager = null
+var voxel_manager = null
+var nav_manager = null
 
 var is_scene_loaded := false
 signal scene_loaded
