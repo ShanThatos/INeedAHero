@@ -13,19 +13,17 @@ onready var main_label: Label3D = $MainLabel
 var main_vr_button: Spatial = null
 
 func _ready():
-	var XR = ARVRServer.find_interface("OpenXR")
-	if XR and XR.initialize():
-		var vp = get_viewport()
-		vp.arvr = true
-		OS.vsync_enabled = false
-		Engine.target_fps = 90
-		var config_gdns = load("res://addons/godot-openxr/config/OpenXRConfig.gdns")
-		var xr_config = config_gdns.new()
-		vp.transparent_bg = true
-		xr_config.start_passthrough()
+	var vp = get_viewport()
+	vp.arvr = true
+	OS.vsync_enabled = false
+	Engine.target_fps = 90
+	var config_gdns = load("res://addons/godot-openxr/config/OpenXRConfig.gdns")
+	var xr_config = config_gdns.new()
+	vp.transparent_bg = true
+	xr_config.start_passthrough()
 
-		Gizmos.stroke = .1
-		start_level_initialization()
+	Gizmos.stroke = .1
+	start_level_initialization()
 
 func start_level_initialization():
 	yield(get_tree().create_timer(1.0), "timeout")

@@ -10,13 +10,13 @@ var base_entity
 var spawn_timer = 0
 var wave = 0
 
-var is_level_manager_loaded = false
-signal level_manager_loaded
+var is_ready = false
 
-func _ready():
+func _init():
 	name = "LevelManager"
 	GameManager.level_manager = self
 
+func _ready():
 	var VoxelManager = load(FileUtils.find_script("VoxelManager", FileUtils.get_script_base_dir(self)))
 	add_child(VoxelManager.new())
 
@@ -27,10 +27,8 @@ func _ready():
 	base_entity.get_component("HealthComponent").connect("_on_death", self, "_on_base_death")
 	ground = get_node("Ground")
 
-	is_level_manager_loaded = true
-	emit_signal("level_manager_loaded")
-
 	spawn_timer = 10.0
+	is_ready = true
 
 func get_level_scale() -> float:
 	return scale.x
@@ -91,5 +89,4 @@ func spawn_wave():
 		enemy.global_translation = to_global(spawn_point)
 
 func _on_base_death():
-	print("Game over")
-	pass
+	GameManager.start_game()

@@ -2,8 +2,8 @@ extends Area
 class_name VRButtonClicker
 
 func _ready():
-    var _ignore = connect("area_entered", self, "_on_area_entered")
-    _ignore = connect("area_exited", self, "_on_area_exited")
+    connect("area_entered", self, "_on_area_entered")
+    connect("area_exited", self, "_on_area_exited")
 
 func _on_area_entered(area: Area):
     if area is VRButton:

@@ -7,7 +7,7 @@ export(float)       var damage: float = 0.0
 var attacked = []
 
 func _ready():
-    var _ignore = connect("body_entered", self, "on_body_entered")
+    connect("body_entered", self, "on_body_entered")
 
 func reset_attack():
     attacked = []

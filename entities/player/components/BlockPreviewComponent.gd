@@ -63,12 +63,12 @@ func preview_voxel_placement(item_id: int):
 	var active_mesh = get_active_mesh()
 	active_mesh.visible = true
 
-	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_data["size"], .1)
+	tween.interpolate_property(preview_node, "scale", null, voxel_data["size"], .1)
 	if preview_node.visible:
-		_ignore = tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
+		tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
 	else:
 		preview_node.translation = voxel_coords
-	_ignore = tween.start()
+	tween.start()
 
 	var material: SpatialMaterial = active_mesh.get_surface_material(0)
 	if voxel_manager.can_place_voxel(voxel_name, voxel_coords):
@@ -92,12 +92,12 @@ func preview_voxel_break():
 		return
 	
 	var voxel_coords = voxel_manager.get_voxel_coord_for(voxel_entity)
-	var _ignore = tween.interpolate_property(preview_node, "scale", null, voxel_entity.get_meta("size"), .1)
+	tween.interpolate_property(preview_node, "scale", null, voxel_entity.get_meta("size"), .1)
 	if preview_node.visible:
-		_ignore = tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
+		tween.interpolate_property(preview_node, "translation", null, voxel_coords, .1)
 	else:
 		preview_node.translation = voxel_coords
-	_ignore = tween.start()
+	tween.start()
 
 	get_active_mesh().visible = false
 	active_mesh_key = "Cube"

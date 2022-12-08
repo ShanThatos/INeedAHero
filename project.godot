@@ -315,7 +315,7 @@ _global_script_class_icons={
 [application]
 
 config/name="INeedAHero"
-run/main_scene="res://entities/levels/MainLevel.tscn"
+run/main_scene="res://entities/levels/MainMenu.tscn"
 boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -326,6 +326,10 @@ config/icon="res://icon.png"
 
 GameManager="*res://globals/managers/GameManager.gd"
 Gizmos="*res://utils/gizmos/Gizmos.gd"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
