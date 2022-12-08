@@ -24,6 +24,7 @@ func _ready():
 	add_child(NavManager.new())
 
 	base_entity = GameManager.voxel_manager.place_voxel("Base", Vector3(-1, 0, -1))
+	base_entity.get_component("HealthComponent").connect("_on_death", self, "_on_base_death")
 	ground = get_node("Ground")
 
 	is_level_manager_loaded = true
@@ -72,7 +73,7 @@ func _physics_process(delta: float):
 	
 	spawn_timer -= delta
 	if spawn_timer <= 0:
-		spawn_timer = 20.0
+		spawn_timer = 15.0
 		spawn_wave()
 
 func spawn_wave():
@@ -88,3 +89,7 @@ func spawn_wave():
 		
 		var spawn_point = spawn_points[randi() % spawn_points.size()]
 		enemy.global_translation = to_global(spawn_point)
+
+func _on_base_death():
+	print("Game over")
+	pass

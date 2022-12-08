@@ -20,7 +20,6 @@ func set_health_bar(health: float):
 func set_is_billboard(_is_billboard: bool):
 	is_billboard = _is_billboard
 	var sprite: Sprite3D = get_node_or_null("Sprite3D")
-	print(sprite)
 	if sprite:
 		sprite.billboard = 2 if is_billboard else 0
 

@@ -8,7 +8,6 @@ var projectile = preload("res://entities/turrets/TurretProjectile/TurretProjecti
 func get_state_name(): return "ScrapTurretAttackState"
 
 func enter():
-	entity.turret_head.look_at(entity.target_body.global_translation, Vector3.UP)
 	var bullet: KinematicBody = projectile.instance()
 	bullet.target_body = entity.target_body
 	GameManager.level_manager.add_child(bullet)

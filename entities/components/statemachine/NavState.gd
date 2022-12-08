@@ -51,7 +51,8 @@ func follow_path(_delta: float):
 	var body = entity as KinematicBody
 	var previous_pos = body.global_translation
 	body.move_and_slide(velocity, Vector3.UP)
-	body.look_at(body.global_translation + direction, Vector3.UP)
+	if body.is_on_floor():
+		body.look_at(body.global_translation + direction, Vector3.UP)
 
 	if previous_pos.is_equal_approx(body.global_translation):
 		time_stuck += _delta
@@ -63,7 +64,7 @@ func has_finished_path():
 		return true
 	var global_pos = entity.global_translation
 	var level_scale = GameManager.level_manager.get_level_scale()
-	if nav_path.size() == 2 and global_pos.distance_to(nav_path[1]) < level_scale / 2:
+	if nav_path.size() == 2 and MathUtils.get_xz_subvector(nav_path[1] - global_pos).length() < level_scale / 2:
 		nav_path = []
 		return true
 	return false

@@ -35,7 +35,8 @@ func physics_update(_delta: float):
 	velocity.y -= entity.gravity * level_scale
 	var body = entity as KinematicBody
 	body.move_and_slide(velocity, Vector3.UP)
-	body.look_at(entity.global_translation + direction, Vector3.UP)
+	if body.is_on_floor():
+		body.look_at(entity.global_translation + direction, Vector3.UP)
 
 func should_enter():
 	if !machine.current_state_matches(["GruntIdleState", "GruntNavState"]):
